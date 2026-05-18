@@ -4,6 +4,6 @@
         "builder": "NIXPACKS"
     },
     "deploy": {
-        "startCommand": "cd ThemeStore && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn ThemeStore.wsgi"
+        "startCommand": "cd YumeProject && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn ThemeStore.wsgi"
     }
 }
