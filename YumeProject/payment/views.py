@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 
 from booking.models import Booking
+from qr_code.views import generate_qr
 
 from .models import Payment
 from .services import amount_to_minor_units, build_callback_url, fetch_payment, MoyasarError
@@ -108,6 +109,10 @@ def payment_callback_view(request):
         booking.save(update_fields=['status'])
         booking.capsule.is_available = False
         booking.capsule.save(update_fields=['is_available'])
+        try:
+            generate_qr(booking)
+        except Exception as e:
+            logger.error(f'QR generation failed: {str(e)}')
 
         messages.success(request, 'Payment confirmed successfully.', extra_tags='alert-success')
         return render(request, 'payment/result.html', {'success': True, 'booking': booking, 'payment': payment_attempt})

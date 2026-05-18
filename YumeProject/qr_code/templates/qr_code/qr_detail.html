@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Booking QR Code{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 text-center">
+
+                <!-- Header -->
+                <h4 class="mb-1">Booking Confirmation</h4>
+                <p class="text-muted small mb-4">Show this QR code at the hotel entrance</p>
+
+                <!-- QR Code Image -->
+                <div class="mb-4">
+                    <img src="{{ qr_access.qr_code.url }}"
+                         class="img-fluid rounded-3"
+                         style="max-width: 250px;"
+                         alt="QR Code">
+                </div>
+
+                <!-- Booking Details -->
+                <div class="text-start border rounded-3 p-3 mb-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Hotel</span>
+                        <span class="fw-medium small">{{ booking.capsule.hotel.name }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Capsule</span>
+                        <span class="fw-medium small">{{ booking.capsule.capsule_num }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Check-in</span>
+                        <span class="fw-medium small">{{ booking.check_in|date:"d M Y, H:i" }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Check-out</span>
+                        <span class="fw-medium small">{{ booking.check_out|date:"d M Y, H:i" }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Booking Type</span>
+                        <span class="fw-medium small">{{ booking.booking_type|capfirst }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Total</span>
+                        <span class="fw-medium small">{{ booking.total_price }} SAR</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted small">Status</span>
+                        {% if booking.status == 'paid' %}
+                            <span class="badge bg-success">Paid</span>
+                        {% elif booking.status == 'pending' %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        {% else %}
+                            <span class="badge bg-secondary">{{ booking.status }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- QR Status -->
+                {% if qr_access.is_used %}
+                <div class="alert alert-warning small mb-4">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    This QR code has already been used.
+                </div>
+                {% endif %}
+
+                <!-- Download PDF -->
+                <a href="{% url 'qr_code:qr_pdf' booking.id %}" class="btn btn-dark w-100">
+                    <i class="bi bi-file-pdf me-2"></i> Download PDF
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
