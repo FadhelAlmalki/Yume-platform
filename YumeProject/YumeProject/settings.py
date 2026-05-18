@@ -27,7 +27,7 @@ load_dotenv(BASE_DIR / '.env')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG = os.environ.get('DEBUG', 'False').strip().lower() in ('true', '1', 'yes')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -143,7 +143,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 #static with whitenoise
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [d for d in [BASE_DIR / "static"] if d.exists()]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
