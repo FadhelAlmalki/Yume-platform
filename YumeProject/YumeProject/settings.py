@@ -156,5 +156,3 @@ MOYASAR_SECRET_KEY = os.environ.get('MOYASAR_SECRET_KEY', '')
 MOYASAR_CURRENCY = os.environ.get('MOYASAR_CURRENCY', 'SAR')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-SITE_URL = 'http://127.0.0.1:8000'
