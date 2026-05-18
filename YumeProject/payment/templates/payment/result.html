@@ -21,6 +21,21 @@
         padding: 1rem;
     }
 
+    body.dark .payment-result-wrap {
+        --surface: #111827;
+        --ink: #f8fafc;
+        --muted: #94a3b8;
+        --success: #34d399;
+        --success-soft: rgba(52, 211, 153, 0.14);
+        --accent: #38bdf8;
+        --line: rgba(148, 163, 184, 0.16);
+        --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+        background:
+            radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.12), transparent 28%),
+            radial-gradient(circle at 85% 10%, rgba(52, 211, 153, 0.12), transparent 24%),
+            linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
+    }
+
     .payment-result-card {
         background: var(--surface);
         border: 1px solid var(--line);
@@ -34,6 +49,10 @@
         border-bottom: 1px solid var(--line);
         padding: 1.4rem;
         text-align: center;
+    }
+
+    body.dark .payment-result-header {
+        background: linear-gradient(120deg, rgba(16, 185, 129, 0.14) 0%, rgba(14, 165, 233, 0.12) 100%);
     }
 
     .payment-result-icon {
@@ -56,10 +75,18 @@
         font-size: clamp(1.15rem, 2.8vw, 1.65rem);
     }
 
+    body.dark .payment-result-title {
+        color: #f8fafc;
+    }
+
     .payment-result-subtitle {
         margin: 0.35rem 0 0;
         color: var(--muted);
         font-size: 0.95rem;
+    }
+
+    body.dark .payment-result-subtitle {
+        color: rgba(226, 232, 240, 0.74);
     }
 
     .result-grid {
@@ -77,10 +104,19 @@
         align-items: center;
     }
 
+    body.dark .result-item {
+        background: rgba(15, 23, 42, 0.72);
+        border-color: rgba(148, 163, 184, 0.14);
+    }
+
     .result-item-label {
         color: var(--muted);
         font-weight: 600;
         margin: 0;
+    }
+
+    body.dark .result-item-label {
+        color: rgba(226, 232, 240, 0.7);
     }
 
     .result-item-value {
@@ -91,9 +127,18 @@
         word-break: break-word;
     }
 
+    body.dark .result-item-value {
+        color: #f8fafc;
+    }
+
     .result-total {
         border-color: rgba(14, 165, 233, 0.35);
         background: rgba(14, 165, 233, 0.06);
+    }
+
+    body.dark .result-total {
+        border-color: rgba(56, 189, 248, 0.28);
+        background: rgba(56, 189, 248, 0.12);
     }
 
     .redirect-panel {
@@ -103,9 +148,17 @@
         text-align: center;
     }
 
+    body.dark .redirect-panel {
+        border-top-color: rgba(148, 163, 184, 0.18);
+    }
+
     .redirect-text {
         color: var(--muted);
         margin-bottom: 0.7rem;
+    }
+
+    body.dark .redirect-text {
+        color: rgba(226, 232, 240, 0.74);
     }
 
     .redirect-progress {
@@ -116,6 +169,10 @@
         margin-bottom: 0.95rem;
     }
 
+    body.dark .redirect-progress {
+        background: #1f2937;
+    }
+
     .redirect-progress > span {
         display: block;
         height: 100%;
@@ -123,6 +180,40 @@
         background: linear-gradient(90deg, var(--accent), #34d399);
         transform-origin: left;
         animation: redirect-shrink 20s linear forwards;
+    }
+
+    .payment-result-cta {
+        border: none;
+        border-radius: 999px;
+        padding: 0.8rem 1.35rem;
+        background: linear-gradient(90deg, #0ea5e9 0%, #10b981 100%);
+        color: #ffffff;
+        box-shadow: 0 14px 30px rgba(14, 165, 233, 0.24);
+    }
+
+    .payment-result-cta:hover {
+        color: #ffffff;
+        transform: translateY(-1px);
+        box-shadow: 0 16px 34px rgba(14, 165, 233, 0.3);
+    }
+
+    body.dark .payment-result-cta {
+        background: linear-gradient(90deg, #38bdf8 0%, #34d399 100%);
+        box-shadow: 0 14px 30px rgba(15, 118, 110, 0.28);
+    }
+
+    body.dark .btn.payment-result-cta {
+        background: linear-gradient(90deg, #38bdf8 0%, #34d399 100%);
+        color: #08111f;
+    }
+
+    body.dark .payment-result-cta:hover {
+        color: #08111f;
+        box-shadow: 0 16px 34px rgba(15, 118, 110, 0.36);
+    }
+
+    body.dark .btn.payment-result-cta:hover {
+        color: #08111f;
     }
 
     @keyframes redirect-shrink {
@@ -210,7 +301,7 @@
                             Redirecting to your profile in <strong><span id="redirect-counter">20</span>s</strong>...
                         </p>
                         <div class="redirect-progress" aria-hidden="true"><span></span></div>
-                        <a href="{% url 'accounts:account_view' %}" class="btn btn-primary">
+                        <a href="{% url 'accounts:account_view' %}" class="btn payment-result-cta">
                             Go to profile now
                         </a>
                     </div>
