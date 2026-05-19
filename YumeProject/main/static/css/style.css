@@ -392,3 +392,48 @@ body.dark .text-dark {
 body.dark .text-dark:hover {
     color: #ffffff80 !important;
 }
+
+/* =========================
+   Logo Animation
+========================= */
+
+@keyframes logoFadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes logoPulse {
+    0%, 100% {
+        text-shadow: 0 0 0 rgba(200, 169, 126, 0);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(200, 169, 126, 0.6);
+    }
+}
+
+@keyframes logoHoverGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(200, 169, 126, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(200, 169, 126, 0.8);
+    }
+}
+
+.navbar-brand {
+    animation: logoFadeInScale 0.6s ease-in-out, logoPulse 3s ease-in-out infinite;
+}
+
+.navbar-brand:hover {
+    animation: logoHoverGlow 0.4s ease-in-out forwards;
+}
+
+body.dark .navbar-brand:hover {
+    animation: logoHoverGlow 0.4s ease-in-out forwards;
+}
