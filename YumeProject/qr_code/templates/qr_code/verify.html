@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}QR Verification{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4 text-center">
+
+                {% if status == 'success' %}
+                <!-- ── Success ── -->
+                <div class="mb-3">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                </div>
+                <h4 class="text-success mb-1">Access Granted</h4>
+                <p class="text-muted small mb-4">QR code verified successfully</p>
+
+                {% elif status == 'already_used' %}
+                <!-- ── Already Used ── -->
+                <div class="mb-3">
+                    <i class="bi bi-x-circle-fill text-warning" style="font-size: 4rem;"></i>
+                </div>
+                <h4 class="text-warning mb-1">Already Used</h4>
+                <p class="text-muted small mb-4">This QR code has already been scanned</p>
+
+                {% elif status == 'expired' %}
+                <!-- ── Expired ── -->
+                <div class="mb-3">
+                    <i class="bi bi-clock-fill text-danger" style="font-size: 4rem;"></i>
+                </div>
+                <h4 class="text-danger mb-1">QR Code Expired</h4>
+                <p class="text-muted small mb-4">This QR code is no longer valid</p>
+
+                {% endif %}
+
+                <!-- Booking Details -->
+                <div class="text-start border rounded-3 p-3 mb-4">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Hotel</span>
+                        <span class="fw-medium small">{{ qr_access.booking.capsule.hotel.name }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Capsule</span>
+                        <span class="fw-medium small">{{ qr_access.booking.capsule.capsule_num }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Customer</span>
+                        <span class="fw-medium small">{{ qr_access.booking.customer.user.get_full_name|default:qr_access.booking.customer.user.username }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Check-in</span>
+                        <span class="fw-medium small">{{ qr_access.booking.check_in|date:"d M Y, H:i" }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Check-out</span>
+                        <span class="fw-medium small">{{ qr_access.booking.check_out|date:"d M Y, H:i" }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted small">Generated at</span>
+                        <span class="fw-medium small">{{ qr_access.generated_at|date:"d M Y, H:i" }}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
