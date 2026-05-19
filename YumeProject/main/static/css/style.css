@@ -121,7 +121,7 @@ footer a:hover,
 ========================= */
 
 body.dark {
-    background-color: #0f0f10;
+    background-color: #121212;
     color: #f5f5f5;
 }
 
@@ -134,7 +134,37 @@ body.dark .navbar {
     border: 1px solid rgba(255,255,255,0.05);
 }
 
+/* Nav pills active state */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: #C8A97E !important;
+    color: #111111 !important;
+}
 
+/* Primary buttons */
+.btn-dark,
+.btn-dark:focus {
+    background-color: #C8A97E !important;
+    border-color: #C8A97E !important;
+    color: #111111 !important;
+}
+
+.btn-dark:hover {
+    background-color: #b8976a !important;
+    border-color: #b8976a !important;
+    color: #111111 !important;
+}
+
+.btn-outline-dark {
+    border-color: #C8A97E !important;
+    color: #C8A97E !important;
+}
+
+.btn-outline-dark:hover {
+    background-color: #C8A97E !important;
+    border-color: #C8A97E !important;
+    color: #111111 !important;
+}
 /* Links */
 
 body.dark .nav-link,
@@ -266,16 +296,28 @@ body.dark::-webkit-scrollbar-thumb {
     border-radius: 10px;
 }
 
-body.dark .btn-dark {
-    background-color: #ffffff;
-    border: 1px solid #111111;
-    color: #000000;
+body.dark .btn-dark,
+body.dark .btn-dark:focus {
+    background-color: #C8A97E !important;
+    border-color: #C8A97E !important;
+    color: #111111 !important;
 }
 
 body.dark .btn-dark:hover {
-    background-color: #000000;
-    border: 1px solid #111111;
-    color: #ffffff;
+    background-color: #b8976a !important;
+    border-color: #b8976a !important;
+    color: #111111 !important;
+}
+
+body.dark .btn-outline-dark {
+    border-color: #C8A97E !important;
+    color: #C8A97E !important;
+}
+
+body.dark .btn-outline-dark:hover {
+    background-color: #C8A97E !important;
+    border-color: #C8A97E !important;
+    color: #111111 !important;
 }
 
 body.dark .dash {
