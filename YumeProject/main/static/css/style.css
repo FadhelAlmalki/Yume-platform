@@ -19,6 +19,14 @@ body {
     backdrop-filter: blur(12px);
     border: 1px solid #0000000d;
     border-radius: 0px;
+    position: relative;
+    z-index: 1001;
+    overflow: visible;
+}
+
+header {
+    position: relative;
+    z-index: 20;
 }
 
 .nav-link,
@@ -75,6 +83,66 @@ footer {
 }
 
 @media (max-width: 575.98px) {
+    .hero-section {
+        min-height: calc(100svh + 3rem);
+        --hero-offset: 4.5rem;
+        margin-top: calc(-1 * var(--hero-offset));
+        padding-top: var(--hero-offset);
+        margin-left: 0;
+        margin-right: 0;
+        z-index: 0;
+    }
+
+    .navbar-collapse {
+        position: relative;
+        z-index: 1002;
+    }
+
+    .hero-section .hero-bg img {
+        object-position: center top;
+    }
+
+    .hero-section .container {
+        padding-top: 1.5rem !important;
+    }
+
+    .home-hero-title {
+        font-size: clamp(3rem, 18vw, 4.25rem);
+        line-height: 0.95;
+        margin-bottom: 1rem;
+    }
+
+    .home-hero-lead {
+        font-size: 1rem;
+        line-height: 1.55 !important;
+        max-width: 100% !important;
+        margin-left: auto;
+        margin-right: auto;
+        padding-inline: 0.5rem;
+    }
+
+    .home-search-shell {
+        padding: 1rem !important;
+    }
+
+    .home-search-shell .border {
+        padding: 0.9rem 1rem !important;
+    }
+
+    .home-search-shell .row {
+        --bs-gutter-y: 0.75rem;
+    }
+
+    .home-search-shell button[type="submit"] {
+        width: 100%;
+        height: 56px !important;
+        border-radius: 999px !important;
+    }
+
+    .home-search-shell .col-12.col-md-auto {
+        width: 100%;
+    }
+
     .footer-shell {
         overflow: visible;
         padding-bottom: clamp(72px, 20vw, 120px);
@@ -122,7 +190,27 @@ footer a:hover,
     overflow: hidden;
 
     z-index: -1;
+    pointer-events: none;
 
+}
+
+
+.hero-section {
+    position: relative;
+    min-height: calc(100svh + 5rem);
+    width: 100vw;
+    max-width: 100vw;
+    --hero-offset: clamp(5.5rem, 8vw, 8rem);
+    margin-top: calc(-1 * var(--hero-offset));
+    padding-top: var(--hero-offset);
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+}
+
+
+.hero-section .container {
+    position: relative;
+    z-index: 1;
 }
 
 
@@ -148,6 +236,7 @@ footer a:hover,
     inset: 0;
 
     background: rgba(0, 0, 0, 0.45);
+    pointer-events: none;
 
 }
 
