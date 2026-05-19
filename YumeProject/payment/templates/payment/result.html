@@ -283,11 +283,15 @@
                             </div>
                             <div class="result-item">
                                 <p class="result-item-label">Check-in</p>
-                                <p class="result-item-value">{{ booking.check_in }}</p>
+                                <!-- <p class="result-item-value">{{ booking.check_in }}</p> -->
+                                 <p class="result-item-value">{{ booking.check_in|date:"d M Y, H:i" }}</p>
+                                
                             </div>
                             <div class="result-item">
                                 <p class="result-item-label">Check-out</p>
-                                <p class="result-item-value">{{ booking.check_out }}</p>
+                                <!-- <p class="result-item-value">{{ booking.check_out }}</p> -->
+                                <p class="result-item-value">{{ booking.check_out|date:"d M Y, H:i" }}</p>
+                                
                             </div>
                             <div class="result-item result-total">
                                 <p class="result-item-label">Total</p>

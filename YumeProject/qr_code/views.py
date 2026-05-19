@@ -68,7 +68,6 @@ def qr_detail(request, booking_id):
 
 
 # ── Download QR as PDF ──
-# ── Download QR as PDF ──
 def qr_pdf(request, booking_id):
     booking = get_object_or_404(Booking, pk=booking_id)
     qr_access = get_object_or_404(QRAccess, booking=booking)
@@ -77,8 +76,8 @@ def qr_pdf(request, booking_id):
     token_label = f"YUME-{booking.capsule.hotel.name}-{booking.id}"
 
     # ── Styles ──
-    title_style = ParagraphStyle('Title', fontName='Helvetica-Bold', fontSize=18, alignment=TA_CENTER, spaceAfter=4)
-    subtitle_style = ParagraphStyle('Subtitle', fontName='Helvetica', fontSize=10, alignment=TA_CENTER, textColor=colors.grey, spaceAfter=4)
+    title_style = ParagraphStyle('Title', fontName='Helvetica-Bold', fontSize=18, alignment=TA_CENTER, spaceAfter=20, spaceBefore=0)
+    subtitle_style = ParagraphStyle('Subtitle', fontName='Helvetica', fontSize=10, alignment=TA_CENTER, textColor=colors.grey, spaceAfter=20)
     section_style = ParagraphStyle('Section', fontName='Helvetica-Bold', fontSize=11, spaceAfter=6, spaceBefore=10)
     label_style = ParagraphStyle('Label', fontName='Helvetica-Bold', fontSize=9, textColor=colors.black)
     value_style = ParagraphStyle('Value', fontName='Helvetica', fontSize=9, textColor=colors.HexColor('#333333'))
@@ -123,6 +122,7 @@ def qr_pdf(request, booking_id):
     story = []
 
     # Header
+    # story.append(Spacer(1, 0.1*cm))
     story.append(Paragraph("Yume", title_style))
     story.append(Paragraph("Official Booking Confirmation", subtitle_style))
     story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#cccccc'), spaceAfter=10))

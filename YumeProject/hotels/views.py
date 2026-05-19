@@ -1,7 +1,11 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse, HttpRequest
 from .models import City, CapsuleHotel, Capsule
+from hotels.models import Capsule
 from django.core.paginator import Paginator
+from django.utils import timezone
+from booking.models import Booking
+from datetime import timedelta
 
 # ── City Views ──
 
@@ -54,8 +58,6 @@ def hotel_list(request):
 def hotel_detail(request, pk):
     hotel = get_object_or_404(CapsuleHotel, pk=pk)
     capsules = hotel.capsules.filter(is_available=True)
-    reviews = hotel.reviews.all().order_by('-created_at')[:5]
-
     related_hotels = CapsuleHotel.objects.filter(
         city=hotel.city,
         is_active=True
@@ -65,9 +67,9 @@ def hotel_detail(request, pk):
         'hotel': hotel,
         'capsules': capsules,
         'capsules_count': capsules.count(),
-        'reviews': reviews,
+        'reviews': [],
         'related_hotels': related_hotels,
-        'check_in': request.GET.get('check_in', ''),   # ← add
-        'check_out': request.GET.get('check_out', ''), # ← add
+        'check_in': request.GET.get('check_in', ''),
+        'check_out': request.GET.get('check_out', ''),
         'capsules_qty': request.GET.get('capsules', 1),
     })

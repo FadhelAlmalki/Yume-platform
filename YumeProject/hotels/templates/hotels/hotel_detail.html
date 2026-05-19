@@ -115,10 +115,32 @@
                     <button type="button" class="btn btn-outline-dark btn-sm" id="increase">+</button>
                 </div>
 
-                <select name="booking_type" class="form-select form-select-sm" style="width: 140px;">
+                <select name="booking_type" class="form-select form-select-sm" style="width: 140px;" id="booking_type" onchange="togglePicker(this.value)">
                     <option value="hour">Hourly</option>
                     <option value="night">Nightly</option>
                 </select>
+
+                <!-- Hourly time picker -->
+                <div id="hourly_picker" class="align-items-center gap-2" style="display:flex;">
+                    <input type="time" name="check_in_time" class="form-control form-control-sm" style="width: 130px;">
+                    <span class="text-muted small">to</span>
+                    <input type="time" name="check_out_time" class="form-control form-control-sm" style="width: 130px;">
+                </div>
+
+                <!-- Nightly date picker -->
+                 <div id="nightly_picker" class="align-items-center gap-2" style="display:none;">
+                    <input type="date" name="check_in_date" class="form-control form-control-sm" style="width: 150px;">
+                    <span class="text-muted small">→</span>
+                    <input type="date" name="check_out_date" class="form-control form-control-sm" style="width: 150px;">
+                    <span class="text-muted small text-success">3:00 PM checkout</span>
+                </div>
+                <!-- <div id="nightly_picker" class="align-items-center gap-2" style="display:none;">
+                    <input type="date" name="check_in_date" class="form-control form-control-sm" style="width: 150px;" placeholder="Check-in date">
+                    <span class="text-muted small">→</span>
+                    <span class="text-muted small fw-medium">Check-out: 3:00 PM</span>
+                    <input type="hidden" name="check_out_time_fixed" value="15:00">
+                </div> -->
+
 
                 <button type="submit" class="btn btn-dark">Book</button>
             </form>
@@ -130,6 +152,7 @@
     {% endif %}
 
 </div>
+
 
 <script>
     const max = {{ capsules_count }};
@@ -144,6 +167,39 @@
         if (qty > 1) { qty--; document.getElementById('quantity').innerText = qty; quantityInput.value = qty; }
     });
 </script>
+<script>
+    function togglePicker(type) {
+        const hourly = document.getElementById('hourly_picker');
+        const nightly = document.getElementById('nightly_picker');
+
+        const dateInput = document.querySelector('[name="check_in_date"]');
+        const inTime = document.querySelector('[name="check_in_time"]');
+        const outTime = document.querySelector('[name="check_out_time"]');
+        const fixedOut = document.querySelector('[name="check_out_time_fixed"]');
+
+        if (type === 'hour') {
+            hourly.style.display = 'flex';
+            nightly.style.display = 'none';
+
+            if (dateInput) dateInput.value = '';
+        } 
+        else if (type === 'night') {
+            hourly.style.display = 'none';
+            nightly.style.display = 'flex';
+
+            if (inTime) inTime.value = '';
+            if (outTime) outTime.value = '';
+
+            if (fixedOut) fixedOut.value = "15:00";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentType = document.getElementById("booking_type").value;
+        togglePicker(currentType);
+    });
+</script>
+
 
 <!-- ── Reviews ── -->
 {% include 'reviews/review_section.html' %}
