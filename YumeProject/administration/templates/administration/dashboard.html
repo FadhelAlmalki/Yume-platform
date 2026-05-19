@@ -95,14 +95,14 @@
                             <tbody>
                                 {% for hotel in pending_hotels %}
                                 <tr>
-                                    <td class="text-muted small">{{ forloop.counter }}</td>
+                                    <td class="small">{{ forloop.counter }}</td>
                                     <td>
                                         <div class="fw-medium">{{ hotel.name }}</div>
-                                        <div class="small text-muted">{{ hotel.address }}</div>
+                                        <div class="small">{{ hotel.address }}</div>
                                     </td>
                                     <td>{{ hotel.hotel_owner.company_name }}</td>
                                     <td>{{ hotel.city.name|default:"—" }}</td>
-                                    <td class="small text-muted">{{ hotel.created_at|date:"d M Y" }}</td>
+                                    <td class="small">{{ hotel.created_at|date:"d M Y" }}</td>
                                     <td>
                                         <form method="post" action="{% url 'administration:toggle_hotel' hotel.pk %}" class="d-inline">
                                             {% csrf_token %}
@@ -114,7 +114,7 @@
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted py-5">
+                                    <td colspan="6" class="text-center py-5">
                                         <i class="bi bi-hourglass" style="font-size:2rem;"></i>
                                         <p class="mt-2 mb-0 small">No pending requests</p>
                                     </td>
@@ -145,14 +145,14 @@
                             <tbody>
                                 {% for hotel in approved_hotels %}
                                 <tr>
-                                    <td class="text-muted small">{{ forloop.counter }}</td>
+                                    <td class="small">{{ forloop.counter }}</td>
                                     <td>
                                         <div class="fw-medium">{{ hotel.name }}</div>
-                                        <div class="small text-muted">{{ hotel.address }}</div>
+                                        <div class="small">{{ hotel.address }}</div>
                                     </td>
                                     <td>{{ hotel.hotel_owner.company_name }}</td>
                                     <td>{{ hotel.city.name|default:"—" }}</td>
-                                    <td class="small text-muted">{{ hotel.created_at|date:"d M Y" }}</td>
+                                    <td class="small">{{ hotel.created_at|date:"d M Y" }}</td>
                                     <td>
                                         <form method="post" action="{% url 'administration:toggle_hotel' hotel.pk %}" class="d-inline">
                                             {% csrf_token %}
@@ -164,7 +164,7 @@
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted py-5">
+                                    <td colspan="6" class="text-center py-5">
                                         <i class="bi bi-hourglass" style="font-size:2rem;"></i>
                                         <p class="mt-2 mb-0 small">No pending requests</p>
                                     </td>
@@ -200,7 +200,7 @@
                             <tbody>
                                 {% for city in cities %}
                                 <tr>
-                                    <td class="text-muted small">{{ forloop.counter }}</td>
+                                    <td class="small">{{ forloop.counter }}</td>
                                     <td>{{ city.name }}</td>
                                     <td>{{ city.hotels.count }}</td>
                                     <td>
@@ -214,7 +214,7 @@
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted py-5">
+                                    <td colspan="5" class="text-center py-5">
                                         <i class="bi bi-geo-alt" style="font-size:2rem;"></i>
                                         <p class="mt-2 mb-0 small">No cities added</p>
                                     </td>
@@ -245,16 +245,16 @@
                             <tbody>
                                 {% for u in all_users %}
                                 <tr>
-                                    <td class="text-muted small">{{ forloop.counter }}</td>
+                                    <td class="small">{{ forloop.counter }}</td>
                                     <td>{{ u.username }}</td>
                                     <td>{{ u.get_full_name|default:"—" }}</td>
                                     <td class="small">{{ u.email|default:"—" }}</td>
                                     <td><span class="badge bg-secondary">{{ u.get_role_display }}</span></td>
-                                    <td class="small text-muted">{{ u.date_joined|date:"d M Y" }}</td>
+                                    <td class="small">{{ u.date_joined|date:"d M Y" }}</td>
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted py-5">
+                                    <td colspan="6" class="text-center py-5">
                                         <i class="bi bi-people" style="font-size:2rem;"></i>
                                         <p class="mt-2 mb-0 small">No users found</p>
                                     </td>
@@ -285,16 +285,16 @@
                             <tbody>
                                 {% for owner in owners %}
                                 <tr>
-                                    <td class="text-muted small">{{ forloop.counter }}</td>
+                                    <td class="small">{{ forloop.counter }}</td>
                                     <td class="fw-medium">{{ owner.company_name }}</td>
                                     <td>{{ owner.user.get_full_name|default:owner.user.username }}</td>
                                     <td class="small">{{ owner.phone_number }}</td>
-                                    <td class="small text-muted">{{ owner.commercial_reg }}</td>
-                                    <td class="small text-muted">{{ owner.created_at|date:"d M Y" }}</td>
+                                    <td class="small">{{ owner.commercial_reg }}</td>
+                                    <td class="small">{{ owner.created_at|date:"d M Y" }}</td>
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted py-5">
+                                    <td colspan="6" class="text-center py-5">
                                         <i class="bi bi-person-badge" style="font-size:2rem;"></i>
                                         <p class="mt-2 mb-0 small">No owners registered</p>
                                     </td>
@@ -325,11 +325,11 @@
                             <tbody>
                                 {% for contact in contact_requests %}
                                 <tr>
-                                    <td class="text-muted small">{{ forloop.counter }}</td>
+                                    <td class="small">{{ forloop.counter }}</td>
                                     <td class="fw-medium">{{ contact.first_name }} {{ contact.last_name }}</td>
                                     <td class="small">{{ contact.email }}</td>
                                     <td>{{ contact.subject }}</td>
-                                    <td class="small text-muted">{{ contact.created_at|date:"d M Y, H:i" }}</td>
+                                    <td class="small">{{ contact.created_at|date:"d M Y, H:i" }}</td>
                                     <td>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-secondary contact-view-btn"
@@ -346,7 +346,7 @@
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted py-5">
+                                    <td colspan="6" class="text-center py-5">
                                         <i class="bi bi-envelope" style="font-size:2rem;"></i>
                                         <p class="mt-2 mb-0 small">No contact requests yet</p>
                                     </td>

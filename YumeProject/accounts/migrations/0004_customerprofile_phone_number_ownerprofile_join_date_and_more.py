@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='customerprofile',
             name='phone_number',
-            field=models.PositiveSmallIntegerField(default=966501001000, max_length=12, verbose_name='Phone Number'),
+            field=models.CharField(default='', max_length=12, verbose_name='Phone Number'),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ownerprofile',
             name='phone_number',
-            field=models.PositiveSmallIntegerField(default=966501001000, max_length=12, verbose_name='Phone Number'),
+            field=models.CharField(default='', max_length=12, verbose_name='Phone Number'),
             preserve_default=False,
         ),
     ]
