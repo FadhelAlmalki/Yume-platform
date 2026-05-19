@@ -30,4 +30,4 @@ urlpatterns = [
     path('reviews/', include('reviews.urls', namespace='reviews')),
     path('qr-code/', include('qr_code.urls', namespace='qr_code')),
     path('administration/', include('administration.urls', namespace='administration')),
-    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+     ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
