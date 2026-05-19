@@ -63,10 +63,10 @@
 
     <form action="{% url 'hotels:hotel_list' %}" method="GET">
 
-    <div class="row g-3 align-items-center">
+    <div class="row g-3 align-items-end">
 
         <!-- LOCATION -->
-        <div class="col-lg">
+        <div class="col-12 col-md-6 col-lg">
             <div class="border rounded-4 px-4 py-1 h-100">
                 <label class="small fw-semibold opacity-75 mb-2 d-block">Where to?</label>
                 <div class="d-flex align-items-center gap-3">
@@ -91,7 +91,7 @@
         </div>
 
         <!-- DATE RANGE -->
-        <div class="col-lg">
+        <div class="col-12 col-md-6 col-lg">
             <div class="border rounded-4 px-4 py-1 h-100">
                 <label class="small fw-semibold opacity-75 mb-2 d-block">Dates</label>
                 <div class="d-flex align-items-center gap-3">
@@ -109,7 +109,7 @@
         </div>
 
         <!-- CAPSULES -->
-        <div class="col-lg">
+        <div class="col-12 col-md-6 col-lg">
             <div class="border rounded-4 px-4 py-1 h-100">
                 <label class="small fw-semibold opacity-75 d-block">Capsules</label>
                 <div class="d-flex align-items-center justify-content-between">
@@ -136,7 +136,7 @@
         </div>
 
         <!-- SEARCH -->
-        <div class="col-lg-auto">
+        <div class="col-12 col-md-auto">
             <button type="submit"
                     class="btn rounded-circle bg-dark px-4 py-4 d-flex align-items-center justify-content-center"
                     style="width:65px; height:65px;">
