@@ -59,6 +59,14 @@ footer a:hover,
 
 
 
+.no-hover:hover,
+.no-hover i:hover,
+.no-hover span:hover {
+    color: inherit !important;
+}
+
+
+
 
 .hero-bg {
 

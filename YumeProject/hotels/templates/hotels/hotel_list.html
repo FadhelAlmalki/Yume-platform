@@ -5,145 +5,659 @@
 
 {% block content %}
 
-<div class="row">
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-    <!-- ── Sidebar Filters ── -->
-    <div class="col-3">
-        <h5>Filters</h5>
-        <hr>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-        <!-- City Filter -->
-        <div class="mb-4">
-            <h6>City</h6>
-            {% for city in cities %}
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="city" value="{{ city.id }}" id="city_{{ city.id }}">
-                <label class="form-check-label" for="city_{{ city.id }}">
-                    {{ city.name }}
-                </label>
-            </div>
-            {% endfor %}
-        </div>
+<div class="container py-4">
 
-        <!-- Booking Type Filter -->
-        <div class="mb-4">
-            <h6>Booking Type</h6>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="booking_type" value="hour" id="type_hour">
-                <label class="form-check-label" for="type_hour">Hourly</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="booking_type" value="night" id="type_night">
-                <label class="form-check-label" for="type_night">Nightly</label>
-            </div>
-        </div>
+    <form action="{% url 'hotels:hotel_list' %}" method="GET">
 
-        <!-- Price Filter -->
-        <div class="mb-4">
-            <h6>Price Range</h6>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="price" value="low" id="price_low">
-                <label class="form-check-label" for="price_low">Under 100 SAR</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="price" value="mid" id="price_mid">
-                <label class="form-check-label" for="price_mid">100 - 300 SAR</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="price" value="high" id="price_high">
-                <label class="form-check-label" for="price_high">Above 300 SAR</label>
-            </div>
-        </div>
+        <!-- =========================
+            SEARCH BAR
+        ========================== -->
 
-    </div>
+        <div class="rounded-5 border p-4 mb-5">
 
-    <!-- ── Hotel Cards ── -->
-    <div class="col-9">
+            <div class="row g-3 align-items-center">
 
-        <!-- Search Bar -->
-        <div class="mb-4">
-            <form method="GET">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="q" placeholder="Search hotels..." value="{{ request.GET.q }}">
-                    <button class="btn btn-dark" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
+                <!-- LOCATION -->
+                <div class="col-lg">
 
-        <!-- Results Count -->
-        <p>{{ hotels.count }} hotels found</p>
+                    <div class="border rounded-4 px-4 py-3 h-100">
 
-        <!-- Cards -->
-        {% for hotel in hotels %}
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-4">
-                    <img src="{{ hotel.image.url }}" class="img-fluid rounded-start h-100 object-fit-cover" alt="{{ hotel.name }}">
-                </div>
-                <div class="col-8">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ hotel.name }}</h5>
-                        <p class="card-text text-muted">{{ hotel.city.name }}</p>
-                        <p class="card-text">{{ hotel.description|truncatewords:20 }}</p>
+                        <label class="small fw-semibold opacity-75 mb-2 d-block">
+                            Where to?
+                        </label>
 
-                        <!-- Rating -->
-                        <div class="d-flex align-items-center gap-1 mb-2">
-                            {% for i in "12345" %}
-                                {% if forloop.counter <= hotel.rating %}
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                {% else %}
-                                    <i class="bi bi-star text-warning"></i>
-                                {% endif %}
-                            {% endfor %}
-                            <small class="text-muted">({{ hotel.rating }})</small>
+                        <div class="d-flex align-items-center gap-3">
+
+                            <i class="bi bi-geo-alt fs-5"></i>
+
+                            <input type="text"
+                                   name="city"
+                                   value="{{ request.GET.city }}"
+                                   class="form-control border-0 shadow-none bg-transparent p-0"
+                                   placeholder="Search city..."
+                                   list="cities">
+
+                            <datalist id="cities">
+
+                                {% for city in cities %}
+                                    <option value="{{ city.name }}">
+                                {% endfor %}
+
+                            </datalist>
+
                         </div>
 
-                        <!-- Price -->
-                        <p class="card-text">
-                            <small>From</small>
-                            <strong>{{ hotel.capsules.first.hour_price }} SAR</strong>
-                            <small>/ hour</small>
-                        </p>
-
-                        <!-- <a href="{% url 'hotels:hotel_detail' hotel.pk %}" class="btn btn-dark">View Hotel</a> -->
-                        <a href="{% url 'hotels:hotel_detail' hotel.pk %}?check_in={{ request.GET.check_in }}&check_out={{ request.GET.check_out }}&capsules={{ request.GET.capsules }}" class="btn btn-dark">View Hotel</a>
                     </div>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <div class="text-center mt-5">
-            <i class="bi bi-building-x fs-1"></i>
-            <p class="mt-2">No hotels found.</p>
-        </div>
-        {% endfor %}
 
-        <!-- Pagination -->
-        {% if hotels.has_other_pages %}
-        <nav class="mt-4">
-            <ul class="pagination justify-content-center">
-                {% if hotels.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ hotels.previous_page_number }}">Previous</a>
-                </li>
-                {% endif %}
-                {% for num in hotels.paginator.page_range %}
-                <li class="page-item {% if hotels.number == num %}active{% endif %}">
-                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                </li>
-                {% endfor %}
-                {% if hotels.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ hotels.next_page_number }}">Next</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
-        {% endif %}
+                </div>
+
+                <!-- DATE RANGE -->
+                <div class="col-lg">
+
+                    <div class="border rounded-4 px-4 py-3 h-100">
+
+                        <label class="small fw-semibold opacity-75 mb-2 d-block">
+                            Dates
+                        </label>
+
+                        <div class="d-flex align-items-center gap-3">
+
+                            <i class="bi bi-calendar3 fs-5"></i>
+
+                            <input type="text"
+                                   id="datePicker"
+                                   class="form-control border-0 shadow-none bg-transparent p-0"
+                                   placeholder="Check-in — Check-out">
+
+                            <input type="hidden"
+                                   name="check_in"
+                                   id="check_in"
+                                   value="{{ request.GET.check_in }}">
+
+                            <input type="hidden"
+                                   name="check_out"
+                                   id="check_out"
+                                   value="{{ request.GET.check_out }}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- CAPSULES -->
+                <div class="col-lg">
+
+                    <div class="border rounded-4 px-4 py-3 h-100">
+
+                        <label class="small fw-semibold opacity-75 d-block">
+                            Capsules
+                        </label>
+
+                        <div class="d-flex align-items-center justify-content-between">
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <i class="bi bi-door-closed fs-5"></i>
+
+                                <span id="capsuleCount">
+                                    {{ request.GET.capsules|default:"1" }} Capsule
+                                </span>
+
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                <button type="button"
+                                        class="btn border-0 bg-transparent"
+                                        onclick="decreaseCapsule()">
+
+                                    <i class="bi bi-dash-circle"></i>
+
+                                </button>
+
+                                <button type="button"
+                                        class="btn border-0 bg-transparent"
+                                        onclick="increaseCapsule()">
+
+                                    <i class="bi bi-plus-circle"></i>
+
+                                </button>
+
+                            </div>
+
+                            <input type="hidden"
+                                   name="capsules"
+                                   id="capsulesInput"
+                                   value="{{ request.GET.capsules|default:'1' }}">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- SEARCH -->
+                <div class="col-lg-auto">
+
+                    <button type="submit"
+                            class="btn border bg-transparent rounded-circle d-flex align-items-center justify-content-center"
+                            style="width:65px; height:65px;">
+
+                        <i class="bi bi-search"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+            CONTENT
+        ========================== -->
+
+        <div class="row g-4">
+
+            <!-- SIDEBAR -->
+<div class="col-lg-3">
+
+    <div class="border rounded-5 p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h5 class="fw-bold mb-0">
+                Filters
+            </h5>
+
+            <a href="{% url 'hotels:hotel_list' %}"
+               class="small text-decoration-none">
+
+                Reset
+
+            </a>
+
+        </div>
+
+        <!-- =========================
+            CITY FILTER
+        ========================== -->
+
+        <div class="mb-5">
+
+            <h6 class="fw-bold mb-3">
+                Cities
+            </h6>
+
+            {% for city in cities %}
+
+            <div class="form-check mb-2">
+
+                <input class="form-check-input"
+                       type="radio"
+                       name="city"
+                       value="{{ city.name }}"
+                       id="city_{{ city.id }}"
+                       {% if request.GET.city == city.name %}checked{% endif %}>
+
+                <label class="form-check-label"
+                       for="city_{{ city.id }}">
+
+                    {{ city.name }}
+
+                </label>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- =========================
+            BOOKING TYPE
+        ========================== -->
+
+        <div class="mb-5">
+
+            <h6 class="fw-bold mb-3">
+                Booking Type
+            </h6>
+
+            <div class="form-check mb-2">
+
+                <input class="form-check-input"
+                       type="radio"
+                       name="booking_type"
+                       value="hour"
+                       id="type_hour"
+                       {% if request.GET.booking_type == 'hour' %}checked{% endif %}>
+
+                <label class="form-check-label"
+                       for="type_hour">
+
+                    Hourly Stay
+
+                </label>
+
+            </div>
+
+            <div class="form-check">
+
+                <input class="form-check-input"
+                       type="radio"
+                       name="booking_type"
+                       value="night"
+                       id="type_night"
+                       {% if request.GET.booking_type == 'night' %}checked{% endif %}>
+
+                <label class="form-check-label"
+                       for="type_night">
+
+                    Night Stay
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+            PRICE FILTER
+        ========================== -->
+
+        <div class="mb-5">
+
+            <h6 class="fw-bold mb-3">
+                Price Range
+            </h6>
+
+            <div class="form-check mb-2">
+
+                <input class="form-check-input"
+                       type="radio"
+                       name="price"
+                       value="low"
+                       id="price_low"
+                       {% if request.GET.price == 'low' %}checked{% endif %}>
+
+                <label class="form-check-label"
+                       for="price_low">
+
+                    Under 100 SAR
+
+                </label>
+
+            </div>
+
+            <div class="form-check mb-2">
+
+                <input class="form-check-input"
+                       type="radio"
+                       name="price"
+                       value="mid"
+                       id="price_mid"
+                       {% if request.GET.price == 'mid' %}checked{% endif %}>
+
+                <label class="form-check-label"
+                       for="price_mid">
+
+                    100 — 300 SAR
+
+                </label>
+
+            </div>
+
+            <div class="form-check">
+
+                <input class="form-check-input"
+                       type="radio"
+                       name="price"
+                       value="high"
+                       id="price_high"
+                       {% if request.GET.price == 'high' %}checked{% endif %}>
+
+                <label class="form-check-label"
+                       for="price_high">
+
+                    Above 300 SAR
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- APPLY BUTTON -->
+
+        <button type="submit"
+                class="btn btn-dark w-100 rounded-4 py-3">
+
+            Apply Filters
+
+        </button>
 
     </div>
+
 </div>
+
+
+            <!-- HOTELS -->
+            <div class="col-lg-9">
+
+                <!-- RESULTS -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <h5 class="fw-bold mb-0">
+
+                        {{ hotels.paginator.count }} Hotels Found
+
+                    </h5>
+
+                </div>
+
+                {% for hotel in hotels %}
+
+                <div class="card border rounded-5 overflow-hidden mb-4 bg-transparent">
+
+                    <div class="row g-0">
+
+                        <!-- IMAGE -->
+                        <div class="col-md-4">
+
+                            {% if hotel.image %}
+
+                            <img src="{{ hotel.image.url }}"
+                                 class="w-100 h-100 object-fit-cover"
+                                 style="min-height:280px;"
+                                 alt="{{ hotel.name }}">
+
+                            {% else %}
+
+                            <div class="h-100 d-flex align-items-center justify-content-center bg-body-tertiary"
+                                 style="min-height:280px;">
+
+                                <h4 class="opacity-50">
+                                    IMAGE
+                                </h4>
+
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+                        <!-- CONTENT -->
+                        <div class="col-md-8">
+
+                            <div class="card-body p-4 h-100 d-flex flex-column">
+
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+
+                                    <div>
+
+                                        <h4 class="fw-bold mb-2">
+                                            {{ hotel.name }}
+                                        </h4>
+
+                                        <p class="opacity-75 mb-0">
+                                            <i class="bi bi-geo-alt"></i>
+                                            {{ hotel.city.name }}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <p class="opacity-75 lh-lg">
+
+                                    {{ hotel.description|truncatewords:25 }}
+
+                                </p>
+
+                                <!-- RATING -->
+                                <div class="d-flex align-items-center gap-1 mb-4">
+
+                                    {% for i in "12345" %}
+
+                                        {% if forloop.counter <= hotel.rating %}
+
+                                            <i class="bi bi-star-fill text-warning"></i>
+
+                                        {% else %}
+
+                                            <i class="bi bi-star text-warning"></i>
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                    <small class="opacity-75 ms-2">
+
+                                        ({{ hotel.rating }})
+
+                                    </small>
+
+                                </div>
+
+                                <!-- FOOTER -->
+                                <div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+                                    <div>
+
+                                        <small class="opacity-75">
+                                            From
+                                        </small>
+
+                                        <h5 class="fw-bold mb-0">
+
+                                            {{ hotel.capsules.first.hour_price }} SAR
+
+                                            <small class="opacity-75 fs-6">
+                                                / hour
+                                            </small>
+
+                                        </h5>
+
+                                    </div>
+
+                                    <a href="{% url 'hotels:hotel_detail' hotel.pk %}?check_in={{ request.GET.check_in }}&check_out={{ request.GET.check_out }}&capsules={{ request.GET.capsules }}"
+                                       class="btn btn-dark rounded-pill px-4 py-2">
+
+                                        View Hotel
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <div class="border rounded-5 p-5 text-center">
+
+                    <i class="bi bi-building-x display-1 opacity-50"></i>
+
+                    <h3 class="fw-bold mt-4">
+                        No Hotels Found
+                    </h3>
+
+                    <p class="opacity-75 mb-0">
+
+                        Try changing the city, dates, or filters.
+
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+
+                <!-- PAGINATION -->
+                {% if hotels.has_other_pages %}
+
+                <nav class="mt-5">
+
+                    <ul class="pagination justify-content-center">
+
+                        {% if hotels.has_previous %}
+
+                        <li class="page-item">
+
+                            <a class="page-link"
+                               href="?page={{ hotels.previous_page_number }}">
+
+                                Previous
+
+                            </a>
+
+                        </li>
+
+                        {% endif %}
+
+                        {% for num in hotels.paginator.page_range %}
+
+                        <li class="page-item {% if hotels.number == num %}active{% endif %}">
+
+                            <a class="page-link"
+                               href="?page={{ num }}">
+
+                                {{ num }}
+
+                            </a>
+
+                        </li>
+
+                        {% endfor %}
+
+                        {% if hotels.has_next %}
+
+                        <li class="page-item">
+
+                            <a class="page-link"
+                               href="?page={{ hotels.next_page_number }}">
+
+                                Next
+
+                            </a>
+
+                        </li>
+
+                        {% endif %}
+
+                    </ul>
+
+                </nav>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<script>
+
+    // =========================
+    // DATE PICKER
+    // =========================
+
+    flatpickr("#datePicker", {
+
+        mode: "range",
+
+        minDate: "today",
+
+        dateFormat: "Y-m-d",
+
+        defaultDate: [
+            "{{ request.GET.check_in }}",
+            "{{ request.GET.check_out }}"
+        ],
+
+        onClose: function(selectedDates) {
+
+            if (selectedDates.length === 2) {
+
+                const pad = n => String(n).padStart(2, '0');
+
+                const formatDate = d =>
+                    `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+
+                document.getElementById('check_in').value =
+                    formatDate(selectedDates[0]);
+
+                document.getElementById('check_out').value =
+                    formatDate(selectedDates[1]);
+
+            }
+
+        }
+
+    });
+
+
+    // =========================
+    // CAPSULE COUNTER
+    // =========================
+
+    let capsules =
+        parseInt(document.getElementById('capsulesInput').value) || 1;
+
+
+    function increaseCapsule() {
+
+        capsules++;
+
+        updateCapsule();
+
+    }
+
+
+    function decreaseCapsule() {
+
+        if (capsules > 1) {
+
+            capsules--;
+
+            updateCapsule();
+
+        }
+
+    }
+
+
+    function updateCapsule() {
+
+        document.getElementById('capsuleCount').innerText =
+
+            capsules + (capsules > 1
+            ? ' Capsules'
+            : ' Capsule');
+
+        document.getElementById('capsulesInput').value = capsules;
+
+    }
+
+</script>
 
 {% endblock %}
