@@ -8,9 +8,13 @@ from .models import City, CapsuleHotel, Capsule
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
-    list_display = ['name', 'is_active']
+    list_display = ['name', 'image', 'is_active']
     list_filter = ['is_active']
     search_fields = ['name']
+    fieldsets = (
+        (None, {'fields': ('name', 'image')}),
+        ('Status', {'fields': ('is_active',)}),
+    )
 
 
 @admin.register(CapsuleHotel)

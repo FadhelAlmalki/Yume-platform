@@ -7,7 +7,7 @@
 
 
 <div class="hero-bg">
-    <img src="{% static 'images/ChatGPT Image May 15, 2026, 05_16_34 PM.png' %}"
+    <img src="{% static 'images/hero-sections.png' %}"
      alt="Hero Image"
 
      class="position-absolute
@@ -206,188 +206,183 @@
 
     </section>
 
-    <!-- FEATURED CAPSULES -->
+    <!-- FEATURED CITIES -->
     <section class="mb-5">
-
-        <div class="text-center text-light mb-5 pt-4">
-
-            <h2 class="display-6 fw-bold">
-                Featured Capsules
-            </h2>
-
-            <p class="opacity-75">
-                Discover modern capsule stays across Saudi Arabia
-            </p>
-
-        </div>
-
-        <div class="row g-4">
-
-            {% for capsule in capsules %}
-
-            <div class="col-6 col-lg-3">
-
-                <div class="card border rounded-5 overflow-hidden h-100 bg-transparent">
-
-                    <!-- IMAGE -->
-                    <div class="bg-body-tertiary d-flex align-items-center justify-content-center"
-                         style="height:220px;">
-
-                        {% if capsule.image %}
-                            <img src="{{ capsule.image.url }}"
-                                 class="w-100 h-100 object-fit-cover">
-                        {% else %}
-                            <h4 class="opacity-50">
-                                IMAGE
-                            </h4>
-                        {% endif %}
-
-                    </div>
-
-                    <!-- CONTENT -->
-                    <div class="card-body text-center">
-
-                        <h5 class="fw-bold">
-                            {{ capsule.name }}
-                        </h5>
-
-                        <p class="opacity-75 small">
-                            {{ capsule.city }}
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            {% empty %}
-
-            {% for i in "1234" %}
-
-            <div class="col-6 col-lg-3">
-
-                <div class="card border rounded-5 overflow-hidden h-100 bg-transparent">
-
-                    <div class="bg-body-tertiary d-flex align-items-center justify-content-center"
-                         style="height:220px;">
-
-                        <h4 class="opacity-50">
-                            TITLE
-                        </h4>
-
-                    </div>
-
-                    <div class="card-body text-center">
-
-                        <h5 class="fw-bold">
-                            Capsule
-                        </h5>
-
-                        <p class="opacity-75 small">
-                            Riyadh
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            {% endfor %}
-
-            {% endfor %}
-
-        </div>
-
+        {% include 'main/cities_list.html' %}
     </section>
 
-    <!-- PROMO SECTION -->
-    <section class="mb-5">
+   <!-- =========================
+     PROMO SECTION
+========================= -->
 
-        <div class="card border rounded-5 overflow-hidden bg-transparent">
+<section class="mb-5">
 
-            <div class="row g-0 align-items-center">
+    <div class="card border rounded-5 overflow-hidden bg-transparent position-relative">
 
-                <!-- IMAGE -->
-                <div class="col-lg-4">
+        <div class="row g-0 align-items-stretch">
 
-                    <div class="bg-body-tertiary d-flex align-items-center justify-content-center"
-                         style="height:320px;">
+            <!-- IMAGE -->
+            <div class="col-lg-4 position-relative overflow-hidden">
 
-                        <h3 class="opacity-50">
-                            IMAGE
-                        </h3>
+                <img src="{% static 'images/Capsules.jpg' %}"
+                     alt="Capsule Experience"
+                     class="w-100 h-100 object-fit-cover">
 
-                    </div>
+                <!-- OVERLAY -->
+                <div class="position-absolute top-0 start-0 w-100 h-100"
+                     style="
+                     background:
+                     linear-gradient(
+                     to top,
+                     rgba(0,0,0,0.65),
+                     rgba(0,0,0,0.15),
+                     rgba(0,0,0,0)
+                     );
+                     ">
+                </div>
+
+                <!-- FLOATING TEXT -->
+                <div class="position-absolute bottom-0 start-0 p-4 ">
+
+                    <span class="badge rounded-pill bg-dark  px-3 py-2 mb-3">
+                        Featured Experience
+                    </span>
+
+                    <h3 class="fw-bold mb-2 text-light" >
+                        Smart Capsule Living
+                    </h3>
+
+                    <p class="opacity-75 mb-0 text-light"
+                       style="max-width:300px; line-height:1.8;">
+
+                        Futuristic hospitality designed
+                        for modern travelers.
+
+                    </p>
 
                 </div>
 
-                <!-- CONTENT -->
-                <div class="col-lg-5">
+            </div>
 
-                    <div class="p-4">
+            <!-- CONTENT -->
+            <div class="col-lg-8">
 
-                        <h2 class="fw-bold mb-4">
-                            Smart Stay Experience
+                <div class="p-5 h-100 d-flex flex-column justify-content-center">
+
+                    <!-- TITLE -->
+                    <div class="mb-4">
+
+                        <span class="badge bg-dark rounded-pill border px-3 py-2 mb-3">
+
+                            Yume Experience
+
+                        </span>
+
+                        <h2 class="display-6 fw-bold lh-sm">
+
+                            Sleep Smarter.
+                            <br>
+                            Travel Better.
+
                         </h2>
 
-                        <p class="opacity-75 lh-lg">
+                    </div>
 
-                            Experience a new generation of hospitality
-                            designed for travelers who value comfort,
-                            privacy, affordability, and technology.
+                    <!-- DESCRIPTION -->
+                    <p class="opacity-75 lh-lg mb-5"
+                       style="max-width:700px;">
 
-                        </p>
+                        Yume introduces a new generation of capsule hospitality
+                        across Saudi Arabia. Designed around privacy,
+                        minimalism, technology, and comfort,
+                        our platform helps travelers discover smart stays
+                        built for the future.
 
-                        <!-- FEATURES -->
-                        <div class="d-flex gap-2 my-4 flex-wrap">
+                    </p>
 
-                            <span class="badge rounded-pill text-bg-dark px-3 py-2">
-                                Smart Booking
-                            </span>
+                    <!-- FEATURES -->
+                    <div class="d-flex flex-wrap gap-3 mb-5">
 
-                            <span class="badge rounded-pill text-bg-dark px-3 py-2">
-                                Capsule Hotels
-                            </span>
+                        <span class="badge rounded-pill text-bg-dark px-4 py-3">
+                            Smart Booking
+                        </span>
 
-                            <span class="badge rounded-pill text-bg-dark px-3 py-2">
-                                Affordable
-                            </span>
+                        <span class="badge rounded-pill text-bg-dark px-4 py-3">
+                            Capsule Hotels
+                        </span>
 
-                            <span class="badge rounded-pill text-bg-dark px-3 py-2">
-                                Saudi Vision 2030
-                            </span>
+                        <span class="badge rounded-pill text-bg-dark px-4 py-3">
+                            Self Check-In
+                        </span>
+
+                        <span class="badge rounded-pill text-bg-dark px-4 py-3">
+                            Vision 2030
+                        </span>
+
+                    </div>
+
+                    <!-- STATS -->
+                    <div class="row g-4 mb-5">
+
+                        <div class="col-md-4">
+
+                            <div class="border rounded-4 p-4 text-center">
+
+                                <h3 class="fw-bold mb-1">
+                                    +12
+                                </h3>
+
+                                <p class="opacity-75 mb-0">
+                                    Cities Soon
+                                </p>
+
+                            </div>
 
                         </div>
 
-                        <!-- PRICE -->
-                        <div class="d-flex justify-content-between align-items-center mt-4">
+                        <div class="col-md-4">
 
-                            <h4 class="fw-bold mb-0">
-                                From $0.00
-                            </h4>
+                            <div class="border rounded-4 p-4 text-center">
 
-                            <a href="#"
-                               class="btn btn-dark rounded-pill px-4">
-                                Explore
-                            </a>
+                                <h3 class="fw-bold mb-1">
+                                    24/7
+                                </h3>
+
+                                <p class="opacity-75 mb-0">
+                                    Smart Access
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="border rounded-4 p-4 text-center">
+
+                                <h3 class="fw-bold mb-1">
+                                    4.9★
+                                </h3>
+
+                                <p class="opacity-75 mb-0">
+                                    User Rating
+                                </p>
+
+                            </div>
 
                         </div>
 
                     </div>
 
-                </div>
+                    <!-- READ MORE -->
+                    <div class="d-flex justify-content-end">
 
-                <!-- READ MORE -->
-                <div class="col-lg-3">
+                        <a href="{% url 'hotels:hotel_list' %}"
+                           class="text-decoration-none text-dark fw-semibold fs-5 d-flex align-items-center gap-2">
 
-                    <div class="d-flex align-items-center justify-content-center h-100 py-5">
+                            Read More
 
-                        <a href="#"
-                           class="text-decoration-none text-dark fs-3 fw-semibold">
-
-                            Read More →
+                            <i class="bi bi-arrow-right"></i>
 
                         </a>
 
@@ -399,7 +394,9 @@
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
     <!-- STATS -->
     <section class="mb-5">

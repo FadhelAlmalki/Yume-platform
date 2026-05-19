@@ -10,8 +10,9 @@ def error_404_view(request: HttpRequest, exception=None):
     return render(request, '404.html', status=404)
 
 def home_view(request: HttpRequest):
+    cities_view = City.objects.filter(is_active=True)[:4]
 
-    return render(request, 'main/home.html')
+    return render(request, 'main/home.html', {'cities': cities_view})
 
 def about_view(request: HttpRequest):
     return render(request, 'main/about.html')
