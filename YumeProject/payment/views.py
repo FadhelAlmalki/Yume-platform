@@ -110,6 +110,13 @@ def payment_callback_view(request):
         booking.capsule.is_available = False
         booking.capsule.save(update_fields=['is_available'])
 
+        # ── Generate QR for first booking ──
+        try:
+            generate_qr(booking)
+        except Exception as e:
+            logger.error(f'QR generation failed: {str(e)}')
+
+
         # ── Mark all bookings in same group as paid ──
         if booking.group_id:
             group_bookings = Booking.objects.filter(
@@ -136,16 +143,17 @@ def payment_callback_view(request):
                     generate_qr(b)
                 except Exception as e:
                     logger.error(f'QR generation failed for booking {b.id}: {str(e)}')
+                    print(f'QR ERROR: {str(e)}')
 
         # if booking.group_id:
         #     Booking.objects.filter(
         #         group_id=booking.group_id
         #     ).exclude(pk=booking.pk).update(status=Booking.STATUS_PAID)
 
-        # try:
-        #     generate_qr(booking)
-        # except Exception as e:
-        #     logger.error(f'QR generation failed: {str(e)}')
+        try:
+            generate_qr(booking)
+        except Exception as e:
+            logger.error(f'QR generation failed: {str(e)}')
 
         messages.success(request, 'Payment confirmed successfully.', extra_tags='alert-success')
         return render(request, 'payment/result.html', {'success': True, 'booking': booking, 'payment': payment_attempt})
