@@ -1,8 +1,17 @@
 {% load static %}
-<!-- CITIES GRID -->
-    <section>
+<!-- FEATURED CITIES SECTION -->
+<div class="text-center mb-5 featured-cities-header">
+    <h2 class="display-6 fw-bold">
+        Featured Cities
+    </h2>
+    <p class="opacity-75">
+        Explore our capsule hotels in popular destinations across Saudi Arabia
+    </p>
+</div>
 
-        <div class="row g-4">
+<!-- CITIES GRID -->
+<section>
+    <div class="row g-4">
             {% for city in cities %}
             <!-- CITY -->
             <div class="col-6 col-md-4 col-lg-3">
@@ -15,10 +24,16 @@
                         <!-- IMAGE -->
                         <div class="bg-body-tertiary d-flex align-items-center justify-content-center"
                              style="height:220px;">
-
-                            <img src="{% static 'images/Riyadh.jpg' %}"
+                            {% if city.image %}
+                            <img src="{{ city.image.url }}"
                                  class="w-100 h-100 object-fit-cover"
                                  alt="{{ city.name }}">
+                            {% else %}
+                            <div class="text-center text-muted">
+                                <i class="bi bi-image fs-1"></i>
+                                <p>No image</p>
+                            </div>
+                            {% endif %}
 
                         </div>
 
