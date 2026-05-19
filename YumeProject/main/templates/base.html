@@ -86,18 +86,32 @@
                         {% if user.is_authenticated %}
 
                         <a href="{% url 'accounts:account_view' %}"
-                        class="text-decoration-none">
+                        class="text-decoration-none d-flex align-items-center gap-2">
+                            <div class="btn-sign d-flex flex-row align-items-center gap-2 ps-2 pe-2 rounded-pill bg-dark text-white">
+                                <i class="bi bi-person-circle no-hover fs-5 text-white"></i>
 
-                            <i class="bi bi-person-circle fs-5"></i>
+                            <span class="fw-medium text-white">
+
+                                {{ user.first_name|default:user.username }}
+
+                            </span>
+                            </div>
+                            
 
                         </a>
 
                         {% else %}
 
                         <a href="{% url 'accounts:sign_in' %}"
-                        class="text-decoration-none">
+                        class="text-decoration-none d-flex align-items-center gap-2">
+                            <div class="btn-sign d-flex flex-row align-items-center gap-2 ps-2 pe-2 pt-1 pb-1 rounded-pill bg-dark text-white">
+                            <span class="fw-medium">
 
-                            <i class="bi bi-person-circle fs-5"></i>
+                                Sign In
+
+                            </span>
+
+                            </div>
 
                         </a>
 
