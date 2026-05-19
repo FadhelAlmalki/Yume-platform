@@ -141,7 +141,10 @@
                     <input type="hidden" name="check_out_time_fixed" value="15:00">
                 </div> -->
 
-
+                <div class="text-center">
+                    <p class="mb-1 small text-muted">Total</p>
+                    <p class="mb-0 fw-bold fs-5" id="total_price">—</p>
+                </div>
                 <button type="submit" class="btn btn-dark">Book</button>
             </form>
 
@@ -168,6 +171,47 @@
     });
 </script>
 <script>
+
+    function updatePrice() {
+        const type = document.getElementById('booking_type').value;
+        const hourPrice = {{ capsules.first.hour_price }};
+        const nightPrice = {{ capsules.first.night_price }};
+        const qty = parseInt(document.getElementById('quantity-input').value);
+
+        if (type === 'hour') {
+            const inTime = document.querySelector('[name="check_in_time"]').value;
+            const outTime = document.querySelector('[name="check_out_time"]').value;
+            if (inTime && outTime) {
+                const inH = parseInt(inTime.split(':')[0]) * 60 + parseInt(inTime.split(':')[1]);
+                const outH = parseInt(outTime.split(':')[0]) * 60 + parseInt(outTime.split(':')[1]);
+                const hours = Math.ceil((outH - inH) / 60);
+                if (hours > 0) {
+                    document.getElementById('total_price').innerText = (hourPrice * hours * qty).toFixed(2) + ' SAR';
+                }
+            }
+        } else {
+            const inDate = document.querySelector('[name="check_in_date"]').value;
+            const outDate = document.querySelector('[name="check_out_date"]').value;
+            if (inDate && outDate) {
+                const nights = (new Date(outDate) - new Date(inDate)) / (1000 * 60 * 60 * 24);
+                if (nights > 0) {
+                    document.getElementById('total_price').innerText = (nightPrice * nights * qty).toFixed(2) + ' SAR';
+                }
+            }
+        }
+    }
+
+    // trigger on change
+    document.getElementById('booking_type').addEventListener('change', updatePrice);
+    document.querySelector('[name="check_in_time"]').addEventListener('change', updatePrice);
+    document.querySelector('[name="check_out_time"]').addEventListener('change', updatePrice);
+    document.querySelector('[name="check_in_date"]').addEventListener('change', updatePrice);
+    document.querySelector('[name="check_out_date"]').addEventListener('change', updatePrice);
+    document.getElementById('increase').addEventListener('click', () => { setTimeout(updatePrice, 50); });
+    document.getElementById('decrease').addEventListener('click', () => { setTimeout(updatePrice, 50); });
+
+
+
     function togglePicker(type) {
         const hourly = document.getElementById('hourly_picker');
         const nightly = document.getElementById('nightly_picker');
