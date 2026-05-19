@@ -20,11 +20,8 @@
         <nav class="navbar navbar-expand-lg rounded-top-0 rounded-5 p-3 p-lg-4 mb-4">
 
             <div class="container-fluid">
-                <div>
-                    
-                </div>
                 <!-- LOGO -->
-                <a class="navbar-brand text-start ms-lg-3" href="{% url 'main:home_view' %}">
+                <a class="navbar-brand text-start ms-lg-3 me-auto me-lg-0" href="{% url 'main:home_view' %}">
                     <h3 class="mb-0">Yume</h3>
                 </a>
 
@@ -136,11 +133,11 @@
 
     <footer class="container text-center rounded-bottom-0 rounded-5">
         
-        <div class="position-relative overflow-hidden" style="padding-bottom: 300px;">
-            <p class="small opacity-50 mt-4 mb-4 me-3 text-end">
+        <div class="position-relative overflow-hidden footer-shell">
+            <p class="small opacity-50 mt-4 mb-3 me-lg-3 text-center text-lg-end">
                 © yume 2026.
             </p>
-            <ul class="nav justify-content-end  me-3 gap-3">
+            <ul class="nav footer-links justify-content-center justify-content-lg-end me-lg-3 gap-2 gap-sm-3 pb-3">
                 <li><a href="{% url 'main:about_view' %}" class="text-decoration-none text-dark">About <i class="bi bi-arrow-up-right"></i></a></li>
                 <li><a href="{% url 'main:contact_view' %}" class="text-decoration-none text-dark">Contact <i class="bi bi-arrow-up-right"></i></a></li>
                 <li><a href="{% url 'main:faq_view' %}" class="text-decoration-none text-dark">FAQs <i class="bi bi-arrow-up-right"></i></a></li>
@@ -148,15 +145,7 @@
                 <li><a href="{% url 'main:terms_privacy_view' %}" class="text-decoration-none text-dark">Terms & Privacy <i class="bi bi-arrow-up-right"></i></a></li>
             </ul>
 
-            <p class="position-absolute start-50 translate-middle-x text-dark m-0"
-            style="
-                    bottom: -110px;
-                    font-size: 300px;
-                    font-weight: 700;
-                    white-space: nowrap;
-                    opacity: 0.08;
-                    pointer-events: none;
-            ">
+            <p class="position-absolute start-50 translate-middle-x text-dark m-0 footer-wordmark">
                 Yume
             </p>
 
