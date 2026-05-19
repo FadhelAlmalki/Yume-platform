@@ -30,6 +30,10 @@ DEBUG = os.environ.get('DEBUG', '0').lower() in ['true', 't', '1']
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    'CSRF_TRUSTED_ORIGINS', 'https://yume-platform-production.up.railway.app'
+).split(',')
+
 # Application definition
 
 INSTALLED_APPS = [
