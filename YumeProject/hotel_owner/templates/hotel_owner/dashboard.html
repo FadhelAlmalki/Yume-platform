@@ -301,4 +301,28 @@
 </div>
 {% endfor %}
 
+<script>
+    // Handle dropdown tab switching on mobile
+        document.querySelectorAll('.dropdown-item[data-bs-target]').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.getAttribute('data-bs-target');
+            const tabEl = document.querySelector(`.nav-link[data-bs-target="${target}"]`);
+            if (tabEl) {
+                bootstrap.Tab.getOrCreateInstance(tabEl).show();
+            }
+            // Update label
+            const label = this.innerText.trim();
+            const labelEl = document.getElementById('active-tab-label');
+            if (labelEl) labelEl.innerText = label;
+
+            // Close dropdown
+            const dropdown = this.closest('.dropdown');
+            if (dropdown) {
+                bootstrap.Dropdown.getOrCreateInstance(dropdown.querySelector('[data-bs-toggle="dropdown"]')).hide();
+            }
+        });
+    });
+</script>
+
 {% endblock %}
