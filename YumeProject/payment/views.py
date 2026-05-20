@@ -109,6 +109,47 @@ def payment_callback_view(request):
         booking.save(update_fields=['status'])
         booking.capsule.is_available = False
         booking.capsule.save(update_fields=['is_available'])
+
+        # ── Generate QR for first booking ──
+        try:
+            generate_qr(booking)
+        except Exception as e:
+            logger.error(f'QR generation failed: {str(e)}')
+
+
+        # ── Mark all bookings in same group as paid ──
+        if booking.group_id:
+            group_bookings = Booking.objects.filter(
+                group_id=booking.group_id
+            ).exclude(pk=booking.pk)
+
+            for b in group_bookings:
+                b.status = Booking.STATUS_PAID
+                b.save(update_fields=['status'])
+
+                # copy payment info to related payment
+                Payment.objects.create(
+                    booking=b,
+                    amount=b.total_price,
+                    currency=settings.MOYASAR_CURRENCY,
+                    provider_name=payment_attempt.provider_name,
+                    provider_payment_id=payment_attempt.provider_payment_id,
+                    status=Payment.STATUS_PAID,
+                    paid_at=timezone.now(),
+                    verified_at=timezone.now(),
+                )
+
+                try:
+                    generate_qr(b)
+                except Exception as e:
+                    logger.error(f'QR generation failed for booking {b.id}: {str(e)}')
+                    print(f'QR ERROR: {str(e)}')
+
+        # if booking.group_id:
+        #     Booking.objects.filter(
+        #         group_id=booking.group_id
+        #     ).exclude(pk=booking.pk).update(status=Booking.STATUS_PAID)
+
         try:
             generate_qr(booking)
         except Exception as e:

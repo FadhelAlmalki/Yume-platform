@@ -27,5 +27,6 @@ class Booking(models.Model):
     booking_type = models.CharField(max_length=50)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING)
 
+    group_id = models.UUIDField(null=True, blank=True, db_index=True)
     customer = models.ForeignKey(CustomerProfile, on_delete=models.CASCADE, related_name='bookings')
     capsule = models.ForeignKey(Capsule, on_delete=models.CASCADE, related_name='bookings')
