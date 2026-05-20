@@ -7,16 +7,16 @@
 
 
 
-<div class="container py-5">
+<div class="container py-4">
     <div class="rounded-5 overflow-hidden px-0">
 
         <!-- HERO -->
         <section class="text-center bg-transparent d-flex align-items-center justify-content-center py-5 rounded-bottom-5 border-bottom">
             <div>
-                <h1 class="display-2 fw-bold ">About Yume</h1>
-                <div class="rounded-pill mx-auto my-4" style="width:150px; height:4px;"></div>
+                <h1 class="display-6 fw-bold anim-section-title">About Yume</h1>
+                <div class="rounded-pill mx-auto my-3" style="width:150px; height:4px;"></div>
 
-                <p class="lead opacity-75 mx-auto" style="max-width:700px; line-height:2;">
+                <p class="lead opacity-75 mx-auto anim-section-lead" style="max-width:700px; line-height:2;">
                     Saudi Arabia’s first capsule hotel platform, delivering a modern and smart hospitality experience designed for travelers, tourists, and business visitors.
                 </p>
             </div>
@@ -28,15 +28,18 @@
                 <div class="row align-items-center g-5">
 
                     <div class="col-lg-4">
-                        <div class="border border-2 border-dark w-100 rounded-4 d-flex align-items-center justify-content-center" style="height:320px;">
+                        <div class="border border-2 border-dark w-100 rounded-4 overflow-hidden" style="height:320px;">
+                            <img src="{% static 'images/who_we_are.jpg' %}"
+                                 alt="Capsule hotel interior"
+                                 class="w-100 h-100 object-fit-cover">
                         </div>
                     </div>
 
                     <div class="col-lg-8">
-                        <h2 class="display-6 fw-bold  mb-3">Who We Are</h2>
+                        <h2 class="display-6 fw-bold  mb-3 anim-section-title">Who We Are</h2>
                         <div class="rounded-pill mb-4" style="width:120px; height:4px;"></div>
 
-                        <p class="opacity-75 lh-lg">
+                        <p class="opacity-75 lh-lg anim-section-lead">
                             Yume is a Saudi hospitality platform focused on redefining short-term stays through smart capsule hotel experiences.
 
                             Our goal is to provide affordable, flexible, and technology-driven accommodation solutions for tourists, students, business travelers, and event visitors across Saudi Arabia.
@@ -52,14 +55,14 @@
             <div class="container">
 
                 <div class="text-center mb-5">
-                    <h2 class="section-title">Why Yume?</h2>
+                    <h2 class="section-title anim-section-title">Why Yume?</h2>
                     <div class="section-line mx-auto"></div>
                 </div>
 
                 <div class="row g-4">
 
                     <div class="col-6 col-md-3">
-                        <div class="border border-2 border-dark rounded-5 p-4 text-center h-100 shadow-sm">
+                        <div class="border border-2 border-dark rounded-5 p-4 text-center h-100 shadow-sm anim-city-card" style="--i:1;">
                             <div class="border border-2 border-dark rounded-4 mx-auto mb-4 d-flex align-items-center justify-content-center"
                              style="width:70px; height:70px;">
 
@@ -74,7 +77,7 @@
                     </div>
 
                     <div class="col-6 col-md-3">
-                        <div class="border border-2 border-dark rounded-5 p-4 text-center h-100 shadow-sm">
+                        <div class="border border-2 border-dark rounded-5 p-4 text-center h-100 shadow-sm anim-city-card" style="--i:2;">
                             <div class="border border-2 border-dark rounded-4 mx-auto mb-4 d-flex align-items-center justify-content-center"
                              style="width:70px; height:70px;">
 
@@ -89,7 +92,7 @@
                     </div>
 
                     <div class="col-6 col-md-3">
-                        <div class="border border-2 border-dark rounded-5 p-4 text-center h-100 shadow-sm">
+                        <div class="border border-2 border-dark rounded-5 p-4 text-center h-100 shadow-sm anim-city-card" style="--i:3;">
                             <div class="border border-2 border-dark rounded-4 mx-auto mb-4 d-flex align-items-center justify-content-center"
                              style="width:70px; height:70px;">
 
@@ -104,7 +107,7 @@
                     </div>
 
                     <div class="col-6 col-md-3">
-                        <div class="border border-2 border-dark rounded-5 p-4 text-center h-100 shadow-sm">
+                        <div class="border border-2 border-dark rounded-5 p-4 text-center h-100 shadow-sm anim-city-card" style="--i:4;">
                             <div class="border border-2 border-dark rounded-4 mx-auto mb-4 d-flex align-items-center justify-content-center"
                              style="width:70px; height:70px;">
 
@@ -124,33 +127,21 @@
 
 
         <!-- VISION & MISSION -->
-        <section class="p-5 mt-5">
+        <section class="py-5 px-3 px-md-4 mt-5">
             <div class="container">
                 <div class="text-center mb-4">
-                    <h2 class="section-title">Vision & Mission</h2>
+                    <h2 class="section-title anim-section-title">Vision & Mission</h2>
                     <div class="section-line mx-auto"></div>
                 </div>
 
-                <div class=" border-dark rounded-5 p-4 text-center h-100 shadow-sm" style="height:220px;">
-                    <h1 class="dash" style="
-                    position: absolute;
-                    font-family:'Times New Roman', Times, serif;
-                    font-size: 20rem;
-                    top: 139%;                    
-                    ">،،</h1>
-                    <p class="section-text fs-3 lh-lg mb-0 " style="font-family: 'Times New Roman', Times, serif; text-align: justify;">
+                <div class="border-dark rounded-5 p-4 text-center h-100 shadow-sm vm-card anim-vm-card">
+                    <h1 class="dash vm-quote vm-quote-start">،،</h1>
+                    <p class="section-text fs-5 fs-md-3 lh-lg mb-0 vm-text anim-vm-text" style="font-family: 'Times New Roman', Times, serif; text-align: justify;">
                          <i>Our mission is to revolutionize the hospitality industry in Saudi Arabia by providing smart, affordable, and flexible capsule hotel stays that cater to the evolving needs of modern travelers.
                         Our vision is to become the leading smart accommodation platform in Saudi Arabia and the Middle East.
                         We aim to create a seamless booking journey that combines Saudi hospitality with modern digital experiences.
                     </i></p>
-                    <h1 class="dash" style="
-                    position: absolute;
-                    font-family:'Times New Roman', Times, serif;
-                    font-size: 20rem;
-                    top: 160%; 
-                    left: 69%;   
-                    rotate: 180deg;                
-                    ">،،</h1>
+                    <h1 class="dash vm-quote vm-quote-end">،،</h1>
                 </div>
             </div>
         </section>
@@ -159,9 +150,9 @@
         <section class="pb-5">
             <div class="container">
                 <div class="bg-transparent rounded-5 p-5 text-center">
-                    <h2 class="mb-4">Start Your Journey With Yume</h2>
+                    <h2 class="mb-4 anim-section-title">Start Your Journey With Yume</h2>
 
-                    <p class="mb-4">
+                    <p class="mb-4 anim-section-lead">
                         Discover a new generation of capsule stays that combine comfort, privacy, and modern technology.
                     </p>
 
