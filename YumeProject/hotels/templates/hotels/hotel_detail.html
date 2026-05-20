@@ -15,7 +15,33 @@
 
     <!-- Image -->
     <div class="col-7">
-        <img src="{{ hotel.image.url }}" class="img-fluid rounded w-100 object-fit-cover" alt="{{ hotel.name }}" style="height: 350px;">
+        <img id="main-hotel-img"
+             src="{{ hotel.image.url }}"
+             class="img-fluid rounded w-100 object-fit-cover mb-2"
+             alt="{{ hotel.name }}"
+             style="height: 350px;">
+
+        {% if hotel.images.all %}
+        <div class="d-flex gap-2 flex-wrap">
+            <img src="{{ hotel.image.url }}"
+                 class="rounded object-fit-cover border border-2 border-dark gallery-thumb"
+                 style="width:80px; height:60px; cursor:pointer;"
+                 onclick="setMainImage(this)">
+            {% for img in hotel.images.all %}
+            <img src="{{ img.image.url }}"
+                 class="rounded object-fit-cover gallery-thumb"
+                 style="width:80px; height:60px; cursor:pointer;"
+                 onclick="setMainImage(this)">
+            {% endfor %}
+        </div>
+        <script>
+            function setMainImage(thumb) {
+                document.getElementById('main-hotel-img').src = thumb.src;
+                document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('border', 'border-2', 'border-dark'));
+                thumb.classList.add('border', 'border-2', 'border-dark');
+            }
+        </script>
+        {% endif %}
     </div>
 
     <!-- Info Card -->

@@ -35,6 +35,22 @@ class CapsuleHotel(models.Model):
         return self.name
 
 
+class HotelImage(models.Model):
+    hotel = models.ForeignKey(
+        CapsuleHotel,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+    image = models.ImageField(upload_to='hotels/gallery/')
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"{self.hotel.name} - image {self.pk}"
+
+
 class Capsule(models.Model):
     hour_price = models.DecimalField(max_digits=8, decimal_places=2)
     night_price = models.DecimalField(max_digits=8, decimal_places=2)

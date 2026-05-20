@@ -97,6 +97,46 @@
 
         </form>
 
+        <!-- ── Gallery (edit mode only) ── -->
+        {% if form.instance.pk %}
+        <hr class="my-4">
+        <h5>Gallery Images</h5>
+
+        <!-- Existing gallery images -->
+        {% if gallery_images %}
+        <div class="d-flex flex-wrap gap-3 mb-3">
+            {% for img in gallery_images %}
+            <div class="position-relative">
+                <img src="{{ img.image.url }}" class="rounded object-fit-cover"
+                     style="width:120px; height:90px;">
+                <form method="POST" action="{% url 'hotel_owner:hotel_image_delete' img.pk %}">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="btn btn-danger btn-sm position-absolute top-0 end-0"
+                            style="padding: 1px 6px; font-size: 0.7rem;"
+                            onclick="return confirm('Remove this image?')">
+                        &times;
+                    </button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted small">No gallery images yet.</p>
+        {% endif %}
+
+        <!-- Add new gallery images -->
+        <form method="POST" action="{% url 'hotel_owner:hotel_image_add' form.instance.pk %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Add Images</label>
+                <input type="file" name="gallery_images" class="form-control" accept="image/*" multiple>
+                <div class="form-text">You can select multiple images at once.</div>
+            </div>
+            <button type="submit" class="btn btn-outline-dark btn-sm">Upload Images</button>
+        </form>
+        {% endif %}
+
     </div>
 </div>
 

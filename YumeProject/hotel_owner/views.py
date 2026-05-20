@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse,HttpRequest
 from accounts.decorators import owner_required
-from hotels.models import CapsuleHotel, Capsule
+from hotels.models import CapsuleHotel, Capsule, HotelImage
 from .forms import CapsuleHotelForm, CapsuleForm
 from  booking.models import Booking
 from payment.models import Payment
@@ -57,7 +57,7 @@ def my_hotels(request):
 
 # Hotel Owner
 def hotel_update(request, pk):
-    hotel = get_object_or_404(CapsuleHotel, pk=pk)
+    hotel = get_object_or_404(CapsuleHotel, pk=pk, hotel_owner=request.user.owner_profile)
     if request.method == 'POST':
         form = CapsuleHotelForm(request.POST, request.FILES, instance=hotel)
         if form.is_valid():
@@ -65,7 +65,29 @@ def hotel_update(request, pk):
             return redirect('hotel_owner:my_hotels')
     else:
         form = CapsuleHotelForm(instance=hotel)
-    return render(request, 'hotel_owner/hotel_form.html', {'form': form})
+    return render(request, 'hotel_owner/hotel_form.html', {
+        'form': form,
+        'gallery_images': hotel.images.all(),
+    })
+
+
+# Hotel Owner
+def hotel_image_add(request, pk):
+    hotel = get_object_or_404(CapsuleHotel, pk=pk, hotel_owner=request.user.owner_profile)
+    if request.method == 'POST':
+        for img in request.FILES.getlist('gallery_images'):
+            HotelImage.objects.create(hotel=hotel, image=img)
+    return redirect('hotel_owner:hotel_update', pk=pk)
+
+
+# Hotel Owner
+def hotel_image_delete(request, image_pk):
+    image = get_object_or_404(HotelImage, pk=image_pk, hotel__hotel_owner=request.user.owner_profile)
+    hotel_pk = image.hotel.pk
+    if request.method == 'POST':
+        image.image.delete(save=False)
+        image.delete()
+    return redirect('hotel_owner:hotel_update', pk=hotel_pk)
 
 
 # Hotel Owner

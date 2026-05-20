@@ -12,6 +12,10 @@ urlpatterns = [
     path('<int:pk>/update/', views.hotel_update, name='hotel_update'),
     path('<int:pk>/delete/', views.hotel_delete, name='hotel_delete'),
 
+    # ── Hotel Images ──
+    path('<int:pk>/images/add/', views.hotel_image_add, name='hotel_image_add'),
+    path('images/<int:image_pk>/delete/', views.hotel_image_delete, name='hotel_image_delete'),
+
     # ── Capsule ──
     path('<int:hotel_pk>/capsules/', views.capsule_list, name='capsule_list'),
     path('<int:hotel_pk>/capsules/create/', views.capsule_create, name='capsule_create'),
