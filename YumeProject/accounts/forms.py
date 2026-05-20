@@ -17,8 +17,10 @@ class CustomerSignUpForm(UserCreationForm):
     last_name  = forms.CharField(max_length=150, required=True)
     email      = forms.EmailField(required=True)
     avatar     = forms.ImageField(required=False)
-    phone_number      = forms.CharField(required=True,validators=[phone_validator])
-   
+    phone_number      = forms.CharField(required=True, validators=[phone_validator],
+                                        widget=forms.TextInput(attrs={'placeholder': '966501002000'}))
+    email             = forms.EmailField(required=True,
+                                         widget=forms.EmailInput(attrs={'placeholder': 'email@email.com'}))
 
     class Meta:
         model  = User
@@ -28,11 +30,13 @@ class CustomerSignUpForm(UserCreationForm):
 class OwnerSignUpForm(UserCreationForm):
     first_name   = forms.CharField(max_length=150, required=True)
     last_name    = forms.CharField(max_length=150, required=True)
-    email        = forms.EmailField(required=True)
+    email        = forms.EmailField(required=True,
+                                    widget=forms.EmailInput(attrs={'placeholder': 'email@email.com'}))
     company_name = forms.CharField(max_length=200)
     commercial_reg = forms.CharField(max_length=100)
     avatar       = forms.ImageField(required=False)
-    phone_number = forms.CharField(required=True,validators=[phone_validator])
+    phone_number = forms.CharField(required=True, validators=[phone_validator],
+                                   widget=forms.TextInput(attrs={'placeholder': '966501002000'}))
 
     class Meta:
         model  = User
