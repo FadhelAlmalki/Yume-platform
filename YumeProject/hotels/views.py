@@ -5,6 +5,7 @@ from hotels.models import Capsule
 from django.core.paginator import Paginator
 from django.utils import timezone
 from booking.models import Booking
+from reviews.models import Review
 from datetime import timedelta
 
 # ── City Views ──
@@ -121,12 +122,25 @@ def hotel_detail(request, pk):
         city=hotel.city,
         is_active=True
     ).exclude(pk=pk)[:3]
+    reviews = Review.objects.filter(hotel=hotel).select_related('user').order_by('-created_at')
+
+    has_booked = False
+    if request.user.is_authenticated:
+        try:
+            has_booked = Booking.objects.filter(
+                customer=request.user.customer_profile,
+                capsule__hotel=hotel,
+                status=Booking.STATUS_PAID,
+            ).exists()
+        except Exception:
+            has_booked = False
 
     return render(request, 'hotels/hotel_detail.html', {
         'hotel': hotel,
         'capsules': capsules,
         'capsules_count': capsules.count(),
-        'reviews': [],
+        'reviews': reviews,
+        'has_booked': has_booked,
         'related_hotels': related_hotels,
         'check_in': request.GET.get('check_in', ''),
         'check_out': request.GET.get('check_out', ''),

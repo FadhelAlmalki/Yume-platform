@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Review
 from hotels.models import CapsuleHotel
+from booking.models import Booking
 
 
 @login_required
@@ -16,6 +17,19 @@ def add_review_view(request):
 
         hotel = get_object_or_404(CapsuleHotel, id=hotel_id)
 
+        try:
+            has_booked = Booking.objects.filter(
+                customer=request.user.customer_profile,
+                capsule__hotel=hotel,
+                status=Booking.STATUS_PAID,
+            ).exists()
+        except Exception:
+            has_booked = False
+
+        if not has_booked:
+            messages.error(request, "You can only review hotels you have stayed at.")
+            return redirect('hotels:hotel_detail', pk=hotel.id)
+
         Review.objects.create(
             user=request.user,
             hotel=hotel,
@@ -24,6 +38,8 @@ def add_review_view(request):
         )
 
         return redirect('hotels:hotel_detail', pk=hotel.id)
+
+    return redirect('hotels:hotel_list')
     
 
 @login_required
