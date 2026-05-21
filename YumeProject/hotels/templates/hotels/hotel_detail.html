@@ -134,7 +134,7 @@
 
             <!-- Counter + Book -->
             <!-- <form method="post" action="{% url 'booking:booking_view' hotel.pk %}" class="d-flex align-items-center gap-3"> -->
-            <form method="post" action="{% url 'booking:booking_view' hotel.pk %}" class="d-flex flex-wrap align-items-center gap-2"></form>
+            <form method="post" action="{% url 'booking:booking_view' hotel.pk %}" class="d-flex flex-wrap align-items-center gap-2">
                 {% csrf_token %}
                 <input type="hidden" name="capsule_id" value="{{ capsules.first.id }}">
                 <input type="hidden" name="quantity" id="quantity-input" value="1">
