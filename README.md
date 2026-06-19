@@ -1,53 +1,122 @@
 # Yume Platform (يومه)
-Tuwaig Python Bootcamp group project
 
-## Project idea:
-A specialized Saudi platform designed to simplify the discovery and booking of capsule hotels across Saudi Arabia. Inspired by the Japanese capsule hotel concept and aligned with Saudi Vision 2030 tourism growth, Yume provides travelers with affordable, modern, and flexible accommodation options through a unified digital experience.
+Yume Platform is a Saudi capsule-hotel booking platform that makes it easier to discover, compare, and reserve modern, affordable stays across the Kingdom. It combines hourly and nightly booking, Moyasar payments, QR-based self check-in, and hotel-owner tools into one streamlined experience aligned with Saudi tourism growth.
 
-Link to the project: [Yume Platform](https://yume-platform-production.up.railway.app/)
+[Live Demo](https://yume-platform-production.up.railway.app/)
 
-### List of features:
-- Browse and search capsule hotels by city, name, booking type, and price
-- Hourly and nightly capsule booking with dynamic price calculation
-- Group booking support (multiple capsules in one transaction)
-- Moyasar payment integration (SAR currency)
-- QR code generation per booking for self check-in, downloadable as PDF
-- QR scanning verification at hotel entry (success / already used / expired)
-- Hotel owner dashboard with stats (hotels, capsules, bookings, revenue)
-- Hotel owner can create, update and delete hotels, manage capsule inventory, and add gallery images
-- Admin panel to approve/reject hotels, manage cities, and monitor users and contact requests
-- Customer profiles with booking history and review management
-- Public owner/company profile pages
-- Hotel reviews and ratings (verified post-booking customers only)
-- Contact form for reaching the platform team
-- Dark mode and light mode
+## Highlights
+- Search capsule hotels by city, name, booking type, and price.
+- Book hourly or nightly stays with dynamic pricing.
+- Pay securely in SAR through Moyasar.
+- Generate a booking QR code PDF for self check-in.
+- Give hotel owners and admins dashboards for management and approval workflows.
 
-### User stories:
-- As a **customer**, I want to search and filter capsule hotels by city and price so I can find the best option for my stay
-- As a **customer**, I want to book capsules hourly or nightly and pay securely so I can confirm my reservation instantly
-- As a **customer**, I want to receive a QR code after payment so I can check in at the hotel without staff assistance
-- As a **hotel owner**, I want to list my hotel and manage my capsule inventory so I can attract bookings through the platform
-- As a **hotel owner**, I want a dashboard showing my bookings and revenue so I can track my business performance
-- As an **admin**, I want to approve or reject hotel listings so I can maintain platform quality and trust
+## Screenshots
 
-### Personas: [ Visitor - Customer - Hotel Owner - Admin ]
+![Yume Platform home page](./assets/images/home.png)
 
-#### Persona stories:
-- **Visitor**: "I want to explore capsule hotels across Saudi Arabia, browse cities, and read about the platform's services before deciding to register."
-- **Customer**: "I'm looking for a quick and affordable place to stay. I want to find a hotel near me, pick a capsule, pay online, and check in using my phone — no hassle."
-- **Hotel Owner**: "I want to list my capsule hotel on the platform, manage my capsule inventory and gallery, and track my bookings and revenue from a clean dashboard."
-- **Admin**: "I want to review and approve new hotel listings to ensure quality, manage the city catalog, and keep an eye on user activity and contact requests."
+![Featured cities and discovery view](./assets/images/featured-cities.png)
 
-#### Journeys:
+## Key Features
 
-**Customer journey**: A visitor lands on the homepage and browses featured cities. After exploring hotel listings and filtering by price or booking type, they select a capsule hotel, choose their capsule and dates, and proceed to checkout. After completing payment via Moyasar, they receive a booking confirmation with a downloadable QR code PDF to use for self check-in. Post-stay, verified customers can leave a rating and review.
+### Discovery
+- Browse and search capsule hotels by city, name, booking type, and price.
+- Explore featured cities and hotel listings through a clean public interface.
+- Switch between dark mode and light mode.
 
-**Hotel Owner journey**: An owner registers on the platform and submits their hotel for approval. Once approved by an admin, they can add capsules and gallery images, and manage their inventory. Their dashboard shows total bookings and revenue, helping them track performance.
+### Booking and Payment
+- Reserve capsules hourly or nightly with dynamic price calculation.
+- Support group bookings for multiple capsules in one transaction.
+- Complete payments through Moyasar in SAR.
 
-**Admin journey**: The admin monitors incoming hotel registration requests and approves or rejects them based on quality standards. They manage the platform's city catalog, review user and contact requests, and maintain overall platform health.
+### QR Check-in
+- Generate a QR code for each confirmed booking.
+- Download booking QR codes as PDF.
+- Scan QR codes at hotel entry to verify success, already-used, or expired status.
 
-### Class UML
-![Class UML](./assets/UML/UML.png)
+### Hotel Owner Tools
+- Manage hotels, capsule inventory, and gallery images.
+- View dashboard stats for hotels, capsules, bookings, and revenue.
+- Publish company or owner profile pages.
+
+### Admin and Trust
+- Approve or reject hotel listings.
+- Manage cities, users, and contact requests.
+- Allow verified customers to leave ratings and reviews after their stay.
+
+## Tech Stack
+- Django 6.0.5
+- Python 3.13.11
+- Frontend: Bootstrap 5.3.8, Bootstrap Icons 1.13.1, Flatpickr, vanilla JavaScript, custom CSS
+- Asset delivery: CDN via jsDelivr
+- SQLite for local development
+- PostgreSQL for production
+- Cloudinary for media storage
+- WhiteNoise for static files
+- Moyasar for payments
+- qrcode and reportlab for QR/PDF generation
+
+## Getting Started
+
+### Prerequisites
+- Python 3.13.11
+- A virtual environment
+- An `.env` file with the required secrets and service credentials
+
+### Install
+```bash
+cd YumeProject
+pip install -r ../requirements.txt
+```
+
+### Environment Variables
+Set the values used by `YumeProject/settings.py`:
+- `SECRET_KEY`
+- `DEBUG`
+- `CSRF_TRUSTED_ORIGINS`
+- `PGDATABASE`
+- `PGUSER`
+- `PGPASSWORD`
+- `PGHOST`
+- `PGPORT`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+- `MOYASAR_API_BASE_URL`
+- `MOYASAR_PUBLISHABLE_KEY`
+- `MOYASAR_SECRET_KEY`
+- `MOYASAR_CURRENCY`
+
+### Run Locally
+```bash
+cd YumeProject
+python manage.py migrate
+python manage.py runserver
+```
+
+## Project Structure
+- `main`: homepage, shared content, and public landing pages.
+- `accounts`: authentication, roles, and profile management.
+- `hotels`: hotel listings, cities, and hotel content.
+- `hotel_owner`: hotel owner dashboard and inventory management.
+- `booking`: booking creation, booking status, and group booking logic.
+- `payment`: payment flow and Moyasar integration.
+- `qr_code`: QR generation, PDF output, and verification logic.
+- `reviews`: customer ratings and hotel reviews.
+- `administration`: admin workflows for approvals and platform oversight.
+
+## User Roles
+- Visitor: explore the platform, browse cities, and learn about available stays.
+- Customer: search hotels, book a capsule, pay online, and check in with a QR code.
+- Hotel Owner: list hotels, manage capsules and galleries, and track performance.
+- Admin: review hotel submissions, manage cities, and monitor user activity.
+
+## Journey Summary
+- Customer journey: discover a hotel, choose a capsule, pay, receive a QR code, and leave a review after the stay.
+- Hotel owner journey: register, submit a hotel for approval, then manage inventory and revenue from the dashboard.
+- Admin journey: approve or reject listings, maintain the city catalog, and keep the platform trustworthy.
+
+## Visual Assets
 
 ### Project Poster
 ![Poster Vertical](./assets/poster/poster%20vertical%20with%20QR%20Code.png)
@@ -58,3 +127,10 @@ Link to the project: [Yume Platform](https://yume-platform-production.up.railway
 ![Brochure Front](./assets/brochure/brochure-front.png)
 
 ![Brochure Back](./assets/brochure/brochure-back.png)
+
+## Deployment
+The project is configured for Railway with Nixpacks. The production start command is:
+
+```bash
+cd YumeProject && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn YumeProject.wsgi --bind 0.0.0.0:$PORT
+```
